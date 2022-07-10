@@ -1,4 +1,4 @@
-module kiexu/go-generic-collection
+module  github.com/kiexu/go-generic-collection
 
 go 1.18
 
