@@ -1,7 +1,7 @@
 package hashset
 
 import (
-	"kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection"
 )
 
 var _ gcollection.Set[struct{}] = new(HashSet[struct{}])

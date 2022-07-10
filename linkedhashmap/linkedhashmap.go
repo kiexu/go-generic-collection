@@ -2,7 +2,7 @@ package linkedhashmap
 
 import (
 	"container/list"
-	"kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection"
 )
 
 var _ gcollection.Map[struct{}, struct{}] = new(LinkedHashMap[struct{}, struct{}])

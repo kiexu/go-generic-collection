@@ -2,7 +2,7 @@ package stack
 
 import (
 	"container/list"
-	"kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection"
 )
 
 var _ gcollection.Stack[struct{}] = new(Stack[struct{}])
