@@ -2,6 +2,7 @@ package gcollection
 
 type Set[T comparable] interface {
 	Collection
+	Iterable[T]
 
 	// Contains check if element exists
 	Contains(T) bool
@@ -15,7 +16,4 @@ type Set[T comparable] interface {
 	// return:  true: exist and success
 	//			false: not exist before
 	Remove(T) bool
-
-	// ToSlice Get slice of elements
-	ToSlice() []T
 }

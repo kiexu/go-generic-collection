@@ -2,6 +2,7 @@ package gcollection
 
 type Stack[T comparable] interface {
 	Collection
+	Iterable[T]
 
 	// Push one element
 	// return: element itself
@@ -14,7 +15,4 @@ type Stack[T comparable] interface {
 	// Peek return top of the stack without removing
 	// return: whether actually exist
 	Peek() (T, bool)
-
-	// ToSlice Get slice of elements from bottom to top
-	ToSlice() []T
 }

@@ -24,3 +24,34 @@ func TestHashSet(t *testing.T) {
 	assert.Equal(t, s.Size(), 0)
 	assert.Equal(t, s.IsEmpty(), true)
 }
+
+func TestHashSet_Iterator(t *testing.T) {
+
+	s := NewHashSet[int]()
+	s.Add(1)
+	s.Add(2)
+	s.Add(3)
+
+	sum := 0
+	itr := s.Iterator()
+	for itr.HasNext() {
+		sum += itr.Next()
+	}
+
+	assert.Equal(t, sum, 6)
+}
+
+func TestHashSet_ForEach(t *testing.T) {
+
+	s := NewHashSet[int]()
+	s.Add(1)
+	s.Add(2)
+	s.Add(3)
+
+	sum := 0
+	s.ForEach(func(a int) {
+		sum += a
+	})
+
+	assert.Equal(t, sum, 6)
+}

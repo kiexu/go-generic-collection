@@ -51,3 +51,34 @@ func TestStack(t *testing.T) {
 
 	assert.Equal(t, s.Size(), 0)
 }
+
+func TestStack_Iterator(t *testing.T) {
+
+	s := NewStack[string]()
+	s.Push("1")
+	s.Push("2")
+	s.Push("3")
+
+	str := ""
+
+	itr := s.Iterator()
+	for itr.HasNext() {
+		str += itr.Next()
+	}
+
+	assert.Equal(t, str, "123")
+}
+
+func TestStack_ForEach(t *testing.T) {
+
+	s := NewStack[string]()
+	s.Push("1")
+	s.Push("2")
+	s.Push("3")
+
+	str := ""
+
+	s.ForEach(func(a string) {
+		str += a
+	})
+}

@@ -3,6 +3,7 @@ package stack
 import (
 	"container/list"
 	"github.com/kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection/iterator"
 )
 
 var _ gcollection.Stack[struct{}] = new(Stack[struct{}])
@@ -55,6 +56,18 @@ func (s *Stack[T]) Peek() (res T, ok bool) {
 // Clear all the elements
 func (s *Stack[T]) Clear() {
 	s.eList = list.New()
+}
+
+// Iterator get an Iterator
+func (s *Stack[T]) Iterator() gcollection.Iterator[T] {
+	return iterator.NewListIterator[T](s.eList)
+}
+
+// ForEach run ConsumeFunc on each element
+func (s *Stack[T]) ForEach(c gcollection.ConsumeFunc[T]) {
+	for ele := s.eList.Front(); ele != nil; ele = ele.Next() {
+		c(ele.Value.(T))
+	}
 }
 
 // ToSlice Get slice of elements from bottom to top

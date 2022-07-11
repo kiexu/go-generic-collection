@@ -3,6 +3,7 @@ package linkedhashset
 import (
 	"container/list"
 	"github.com/kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection/iterator"
 )
 
 var _ gcollection.Set[struct{}] = new(LinkedHashSet[struct{}])
@@ -74,6 +75,18 @@ func (s *LinkedHashSet[T]) Clear() {
 	s.eMap = make(map[T]*list.Element)
 
 	return
+}
+
+// Iterator get an Iterator
+func (s *LinkedHashSet[T]) Iterator() gcollection.Iterator[T] {
+	return iterator.NewListIterator[T](s.eList)
+}
+
+// ForEach run ConsumeFunc on each element
+func (s *LinkedHashSet[T]) ForEach(c gcollection.ConsumeFunc[T]) {
+	for ele := s.eList.Front(); ele != nil; ele = ele.Next() {
+		c(ele.Value.(T))
+	}
 }
 
 // ToSlice Get add-base-ordered slice of objects

@@ -3,6 +3,7 @@ package linkedhashmap
 import (
 	"container/list"
 	"github.com/kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection/iterator"
 )
 
 var _ gcollection.Map[struct{}, struct{}] = new(LinkedHashMap[struct{}, struct{}])
@@ -128,6 +129,30 @@ func (m *LinkedHashMap[K, V]) Values() []V {
 
 // Entries get slice of entries in put-order
 func (m *LinkedHashMap[K, V]) Entries() []gcollection.MapEntry[K, V] {
+
+	res := make([]gcollection.MapEntry[K, V], 0, m.entryList.Len())
+
+	for ele := m.entryList.Front(); ele != nil; ele = ele.Next() {
+		res = append(res, ele.Value.(gcollection.MapEntry[K, V]))
+	}
+
+	return res
+}
+
+// Iterator get an Iterator
+func (m *LinkedHashMap[K, V]) Iterator() gcollection.Iterator[gcollection.MapEntry[K, V]] {
+	return iterator.NewListIterator[gcollection.MapEntry[K, V]](m.entryList)
+}
+
+// ForEach run ConsumeFunc on each element
+func (m *LinkedHashMap[K, V]) ForEach(c gcollection.ConsumeFunc[gcollection.MapEntry[K, V]]) {
+	for ele := m.entryList.Front(); ele != nil; ele = ele.Next() {
+		c(ele.Value.(gcollection.MapEntry[K, V]))
+	}
+}
+
+// ToSlice Get add-base-ordered slice of objects
+func (m *LinkedHashMap[K, V]) ToSlice() []gcollection.MapEntry[K, V] {
 
 	res := make([]gcollection.MapEntry[K, V], 0, m.entryList.Len())
 

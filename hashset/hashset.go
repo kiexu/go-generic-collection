@@ -2,6 +2,7 @@ package hashset
 
 import (
 	"github.com/kiexu/go-generic-collection"
+	"github.com/kiexu/go-generic-collection/iterator"
 )
 
 var _ gcollection.Set[struct{}] = new(HashSet[struct{}])
@@ -60,6 +61,18 @@ func (s *HashSet[T]) Remove(e T) bool {
 func (s *HashSet[T]) Clear() {
 	s.valueMap = make(map[T]struct{})
 	return
+}
+
+// Iterator get an Iterator
+func (s *HashSet[T]) Iterator() gcollection.Iterator[T] {
+	return iterator.NewSliceIterator[T](s.ToSlice())
+}
+
+// ForEach run ConsumeFunc on each element
+func (s *HashSet[T]) ForEach(c gcollection.ConsumeFunc[T]) {
+	for k := range s.valueMap {
+		c(k)
+	}
 }
 
 // ToSlice Get disordered slice of objects

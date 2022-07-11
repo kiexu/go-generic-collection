@@ -1,8 +1,8 @@
 package linkedhashmap
 
 import (
+	"github.com/kiexu/go-generic-collection"
 	"gotest.tools/v3/assert"
-	gcollection "kiexu/go-generic-collection"
 	"testing"
 )
 
@@ -74,4 +74,42 @@ func TestLinkedHashMap(t *testing.T) {
 	r1, r2 = s.Put(tp{1}, 1)
 	assert.Equal(t, r1, zeroV)
 	assert.Equal(t, r2, false)
+}
+
+func TestLinkedHashMap_ForEach(t *testing.T) {
+
+	s := NewLinkedHashMap[string, int]()
+	s.Put("1", 1)
+	s.Put("2", 2)
+	s.Put("3", 3)
+
+	str := ""
+	sum := 0
+	s.ForEach(func(e gcollection.MapEntry[string, int]) {
+		str += e.Key()
+		sum += e.Value()
+	})
+
+	assert.Equal(t, str, "123")
+	assert.Equal(t, sum, 6)
+}
+
+func TestLinkedHashMap_Iterator(t *testing.T) {
+
+	s := NewLinkedHashMap[string, int]()
+	s.Put("1", 1)
+	s.Put("2", 2)
+	s.Put("3", 3)
+
+	str := ""
+	sum := 0
+	itr := s.Iterator()
+	for itr.HasNext() {
+		next := itr.Next()
+		str += next.Key()
+		sum += next.Value()
+	}
+
+	assert.Equal(t, str, "123")
+	assert.Equal(t, sum, 6)
 }

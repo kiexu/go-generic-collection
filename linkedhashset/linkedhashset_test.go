@@ -1,6 +1,7 @@
 package linkedhashset
 
 import (
+	"fmt"
 	"gotest.tools/v3/assert"
 	"testing"
 )
@@ -29,4 +30,36 @@ func TestHashSet(t *testing.T) {
 	s.Clear()
 	assert.Equal(t, s.Size(), 0)
 	assert.Equal(t, s.IsEmpty(), true)
+}
+
+func TestHashSet_Iterator(t *testing.T) {
+
+	s := NewLinkedHashSet[int]()
+	s.Add(1)
+	s.Add(2)
+	s.Add(3)
+
+	sum := 0
+
+	itr := s.Iterator()
+	for itr.HasNext() {
+		sum += itr.Next()
+	}
+
+	assert.Equal(t, sum, 6)
+}
+
+func TestHashSet_ForEach(t *testing.T) {
+
+	s := NewLinkedHashSet[int]()
+	s.Add(1)
+	s.Add(2)
+	s.Add(3)
+
+	str := ""
+	s.ForEach(func(a int) {
+		str += fmt.Sprintf("%v", a)
+	})
+
+	assert.Equal(t, str, "123")
 }

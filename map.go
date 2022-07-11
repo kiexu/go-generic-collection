@@ -2,6 +2,7 @@ package gcollection
 
 type Map[K, V comparable] interface {
 	Collection
+	Iterable[MapEntry[K, V]]
 
 	// ContainsKey check if key exists
 	ContainsKey(key K) bool
@@ -28,9 +29,6 @@ type Map[K, V comparable] interface {
 
 	// Values get all values
 	Values() []V
-
-	// Entries get all entries
-	Entries() []MapEntry[K, V]
 }
 
 // MapEntry common map entry

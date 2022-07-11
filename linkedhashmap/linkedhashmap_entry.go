@@ -1,6 +1,8 @@
 package linkedhashmap
 
-import gcollection "kiexu/go-generic-collection"
+import (
+	"github.com/kiexu/go-generic-collection"
+)
 
 var _ gcollection.MapEntry[struct{}, struct{}] = new(LinkedHashEntry[struct{}, struct{}])
 
