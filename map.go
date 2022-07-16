@@ -1,6 +1,6 @@
 package gcollection
 
-type Map[K, V comparable] interface {
+type Map[K comparable, V any] interface {
 	Collection
 	Iterable[MapEntry[K, V]]
 
@@ -32,7 +32,7 @@ type Map[K, V comparable] interface {
 }
 
 // MapEntry common map entry
-type MapEntry[K, V comparable] interface {
+type MapEntry[K comparable, V any] interface {
 	Key() K
 	Value() V
 	SetKey(key K)
